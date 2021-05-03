@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="logo" @click="redirect(-1)">
+    <div class="logo" @click="redirect('/')">
       <h1>&lt;/&gt; Dev<span class="blue">Web</span></h1>
     </div>
 
@@ -18,7 +18,7 @@
             :iconClasses="item.iconClasses"
             :isSelected="item.isSelected"
             :link="item.link"
-            @redirect="redirect(index)"
+            @redirect="redirect(item.link)"
           />
         </ul>
       </nav>
@@ -33,6 +33,9 @@
     name: 'Menu',
     components: {
       Item
+    },
+    props: {
+      currentPath: String
     },
     data() {
       return {
@@ -71,17 +74,21 @@
       }
     },
     methods: {
-      redirect(itemIndex) {
-        this.items.forEach(item => (item.isSelected = false));
+      redirect(link) {
+        if (link === this.currentPath) return;
 
-        if (itemIndex === -1) {
-          this.$router.push('/');
-          return;
-        }
+        this.$router.push(link);
+      }
+    },
+    watch: {
+      currentPath() {
+        this.items.forEach(item => {
+          item.isSelected = false;
 
-        this.items[itemIndex].isSelected = true;
-
-        this.$router.push(this.items[itemIndex].link);
+          if (item.link === this.currentPath) {
+            item.isSelected = true;
+          }
+        });
       }
     }
   }
@@ -91,7 +98,7 @@
   header {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     height: 100vh;

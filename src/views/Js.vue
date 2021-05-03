@@ -6,7 +6,10 @@
 
 <script>
   export default {
-
+    name: 'Js',
+    created() {
+      this.$emit('currentPath', this.$route);
+    }
   }
 </script>
 

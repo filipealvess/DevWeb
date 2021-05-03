@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Menu />
+    <Menu :currentPath="currentPath" />
 
-    <router-view></router-view>
+    <router-view @currentPath="updateCurrentPath"></router-view>
   </div>
 </template>
 
@@ -13,6 +13,16 @@
     name: 'App',
     components: {
       Menu
+    },
+    data() {
+      return {
+        currentPath: '/'
+      }
+    },
+    methods: {
+      updateCurrentPath(route) {
+        this.currentPath = route.path;
+      }
     }
   }
 </script>
