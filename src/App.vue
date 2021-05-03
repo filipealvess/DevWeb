@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Menu></Menu>
+    <Menu />
 
     <router-view></router-view>
   </div>
@@ -30,7 +30,7 @@
   }
 
   body {
-    min-height: 300vh;
+    min-height: 100vh;
     background-color: var(--dark-black);
   }
 
