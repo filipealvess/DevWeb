@@ -97,26 +97,12 @@
     overflow-y: hidden;
   }
 
-  h2, h3 {
-    color: var(--white);
-    font-family: 'Montserrat', sans-serif;
-  }
-
   button {
     background-color: transparent;
   }
 
   header {
     grid-area: menu;
-  }
-
-  .view {
-    grid-area: view;
-    overflow-y: auto;
-  }
-
-  .view p {
-    font-size: 1.6rem;
   }
 
   @media (max-width: 770px) {
