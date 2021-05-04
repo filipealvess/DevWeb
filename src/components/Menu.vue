@@ -80,15 +80,17 @@
 
         this.$router.push(link);
       },
-      handleMenuVisibility({ path }) {
+      handleMenuVisibility({ target }) {
         const menuContainer = document.querySelector('nav');
         const btnToggleMenu = document.querySelector('.btn-toggle-menu');
-        const menuWasClicked = path.includes(menuContainer);
-        const btnToggleMenuWasClicked = path.includes(btnToggleMenu);
+        const btnToggleMenuIcon = document.querySelector('.btn-toggle-menu i');
+        const menuWasClicked = target === menuContainer;
+        const btnToggleMenuWasClicked = target === btnToggleMenu;
+        const btnToggleMenuIconWasClicked = target === btnToggleMenuIcon;
 
         if (menuWasClicked) return;
 
-        if (btnToggleMenuWasClicked) {
+        if (btnToggleMenuWasClicked || btnToggleMenuIconWasClicked) {
           this.$emit('closeMenu', !this.isVisible);
           return;
         }
