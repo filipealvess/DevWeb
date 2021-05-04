@@ -5,7 +5,7 @@
 }
 
 .view h2, .view h3 {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   color: var(--white);
   font-family: 'Montserrat', sans-serif;
 }
@@ -16,7 +16,7 @@
 }
 
 .view h3 {
-  margin-top: 20px;
+  margin-top: 35px;
   font-size: 2rem;
   font-weight: 500;
 }
@@ -24,6 +24,31 @@
 .view p, .view li {
   font-size: 1.6rem;
   font-weight: 400;
+}
+
+.view p + p {
+  margin-top: 20px;
+}
+
+.view li + li {
+  margin-top: 5px;
+}
+
+.view a {
+  color: var(--blue);
+}
+
+.view a:hover {
+  text-decoration: underline;
+}
+
+.view a::after {
+  content: '\f35d';
+  margin-left: 3px;
+  font-family: 'Font Awesome 5 Free';
+  font-size: 1rem;
+  font-weight: bold;
+  vertical-align: super;
 }
 
 @media (max-width: 770px) {
