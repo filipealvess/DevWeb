@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header @click="handleMenuVisibility">
     <div class="logo" @click="redirect('/')">
       <h1>&lt;/&gt; Dev<span class="blue">Web</span></h1>
     </div>
@@ -9,7 +9,7 @@
         <i class="fas fa-bars"></i>
       </button>
 
-      <nav>
+      <nav :class="{ 'visible' : isVisible }">
         <ul>
           <Item
             v-for="(item, index) in items"
@@ -35,7 +35,8 @@
       Item
     },
     props: {
-      currentPath: String
+      currentPath: String,
+      isVisible: Boolean
     },
     data() {
       return {
@@ -78,16 +79,27 @@
         if (link === this.currentPath) return;
 
         this.$router.push(link);
+      },
+      handleMenuVisibility({ path }) {
+        const menuContainer = document.querySelector('nav');
+        const btnToggleMenu = document.querySelector('.btn-toggle-menu');
+        const menuWasClicked = path.includes(menuContainer);
+        const btnToggleMenuWasClicked = path.includes(btnToggleMenu);
+
+        if (menuWasClicked) return;
+
+        if (btnToggleMenuWasClicked) {
+          this.$emit('closeMenu', !this.isVisible);
+          return;
+        }
+
+        this.$emit('closeMenu', false);
       }
     },
     watch: {
       currentPath() {
         this.items.forEach(item => {
-          item.isSelected = false;
-
-          if (item.link === this.currentPath) {
-            item.isSelected = true;
-          }
+          item.isSelected = (item.link === this.currentPath);
         });
       }
     }
@@ -98,18 +110,19 @@
   header {
     display: flex;
     flex-direction: column;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    width: 270px;
+    height: 100%;
     background-color: var(--medium-black);
   }
 
   .logo {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 15%;
-    padding: 0 60px;
     border-bottom: 1px solid var(--light-gray);
     cursor: pointer;
   }
@@ -131,9 +144,57 @@
 
   .btn-toggle-menu {
     display: none;
+    cursor: pointer;
+  }
+
+  .btn-toggle-menu i {
+    font-size: 2.4rem;
   }
 
   .blue {
     color: var(--blue);
+  }
+
+  @media (max-width: 770px) {
+    header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      max-width: none;
+      width: 100%;
+      height: 60px;
+      padding: 0 20px;
+    }
+
+    .logo {
+      height: auto;
+      border-bottom: 0;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-toggle-menu {
+      display: block;
+    }
+
+    nav {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      width: 80vw;
+      max-width: 500px;
+      height: 90vh;
+      background-color: var(--medium-black);
+      border-top: 1px solid var(--light-gray);
+      transform: translateX(100%);
+      transition: 0.4s transform ease-in-out;
+    }
+
+    nav.visible {
+      transform: translateX(0);
+    }
   }
 </style>
