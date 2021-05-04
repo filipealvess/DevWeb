@@ -19,6 +19,8 @@
 </script>
 
 <style scoped>
+  @import '../css/global-views.css';
+
   .view {
     display: flex;
     flex-direction: column;

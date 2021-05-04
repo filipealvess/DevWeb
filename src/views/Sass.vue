@@ -14,5 +14,5 @@
 </script>
 
 <style scoped>
-
+  @import '../css/global-views.css';
 </style>
