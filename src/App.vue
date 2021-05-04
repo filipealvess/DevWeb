@@ -115,6 +115,10 @@
     overflow-y: auto;
   }
 
+  .view p {
+    font-size: 1.6rem;
+  }
+
   @media (max-width: 770px) {
     #app {
       grid-template-columns: 100vw;
